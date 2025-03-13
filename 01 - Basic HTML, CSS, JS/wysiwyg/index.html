@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WYSIWYG Editor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 10px;
+            padding: 10px;
+            background: #f3f3f3;
+            border-radius: 5px;
+        }
+        .toolbar button {
+            cursor: pointer;
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            background: white;
+            border-radius: 3px;
+        }
+        .toolbar button:hover {
+            background: #ddd;
+        }
+        #editor {
+            min-height: 200px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            outline: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="toolbar">
+        <button data-command="bold"><b>B</b></button>
+        <button data-command="italic"><i>I</i></button>
+        <button data-command="underline"><u>U</u></button>
+        <button data-command="undo">↶</button>
+        <button data-command="redo">↷</button>
+    </div>
+
+    <div id="editor" contenteditable="true"></div>
+
+    <script>
+        function execCmd(command) {
+            document.execCommand(command, false, null);
+        }
+
+        document.querySelector('.toolbar').addEventListener('click', function(event) {
+            if (event.target.closest('button')) {
+                const command = event.target.closest('button').getAttribute('data-command');
+                execCmd(command);
+            }
+        });
+    </script>
+
+</body>
+</html>
